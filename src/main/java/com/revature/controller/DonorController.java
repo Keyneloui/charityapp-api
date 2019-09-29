@@ -7,11 +7,9 @@ import com.google.gson.JsonObject;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
 import com.revature.exception.DBException;
-import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
 import com.revature.model.User;
 import com.revature.services.UserService;
-import com.revature.util.DisplayUtil;
 
 public class DonorController {
 	static UserDAO udao = new UserDAOImpl();
@@ -29,7 +27,7 @@ public class DonorController {
 			}
 
 		} catch (Exception e) {
-			// e.printStackTrace();
+
 			errorMessage = e.getMessage();
 		}
 
@@ -49,6 +47,7 @@ public class DonorController {
 	}
 
 	public static String register(String name, String email, String password) {
+		
 
 		String errorMessage = null;
 		String message = null;
@@ -59,11 +58,12 @@ public class DonorController {
 			user.setName(name);
 			user.setEmail(email);
 			user.setPassword(password);
+			
 			us.registerDonor(user);
 			message = "Success";
 
 		} catch (DBException e) {
-			// e.printStackTrace();
+
 			errorMessage = e.getMessage();
 		}
 
@@ -86,7 +86,7 @@ public class DonorController {
 		List<DonorActivity> list = null;
 		String errorMessage = null;
 		try {
-			// list=udao.findAll();
+
 			list = us.findAll();
 
 		} catch (DBException e) {
@@ -109,9 +109,9 @@ public class DonorController {
 
 	public static void main(String[] args) {
 
-		// testLogin();
-		 testRegister();
-		//listDonor();
+		testLogin();
+		testRegister();
+		listDonor();
 
 	}
 

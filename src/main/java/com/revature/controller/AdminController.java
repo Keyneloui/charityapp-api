@@ -53,7 +53,7 @@ public class AdminController {
 
 	private static void testLogin() {
 		System.out.println("Test Case 1: Valid User");
-		String validUserJson = AdminController.login("k1@gmail.com", "123");
+		String validUserJson = AdminController.login("k@gmail.com", "123");
 		System.out.println(validUserJson);
 
 		System.out.println("Test Case 2: Invalid User");

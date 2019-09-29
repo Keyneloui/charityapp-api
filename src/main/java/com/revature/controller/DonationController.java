@@ -24,9 +24,9 @@ public class DonationController {
 		List<DonationRequest> list = null;
 		String errorMessage = null;
 		try {
-			//list = dao.findAll();
+			
 			list=ds.findAll();
-			DisplayUtil.display(list);
+			
 
 		} catch (DBException e) {
 			errorMessage = e.getMessage();
@@ -40,7 +40,7 @@ public class DonationController {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("errorMessage", errorMessage);
 		}
-
+		System.out.println("List"+json);
 		return json;
 
 	}
@@ -61,7 +61,7 @@ public class DonationController {
 			message = "Success";
 
 		} catch (Exception e) {
-			// e.printStackTrace();
+		
 			errorMessage = e.getMessage();
 		}
 
@@ -83,7 +83,7 @@ public class DonationController {
 		
 		DonationRequest donationRequest = dao.findByRequestType(requestType);
 		if ( donationRequest == null) {
-			throw new DBException("Request Id not found");
+			throw new DBException("Request Type not found");
 		}
 		return requestType;
 	}
@@ -97,7 +97,7 @@ public class DonationController {
 			dr = new DonationRequest();
 
 			dr.setRequestType(requestType);
-		//	dr.setRequestId(requestId);
+		
 			dr.setRequestAmount(requestAmount);
 			
 			validateRequestType(requestType);
@@ -105,7 +105,7 @@ public class DonationController {
 			message = "Success";
 
 		} catch (Exception e) {
-			// e.printStackTrace();
+			
 			errorMessage = e.getMessage();
 		}
 
@@ -137,9 +137,7 @@ public class DonationController {
 		da.setRequestType(requestType);
 		da.setEmailId(emailId);
 		try {
-			// dao.findByRequestType(requestType);
-			// dao.updateDonations(da);
-			// udao.donorActivity(da);
+			
 			validateRequestType(requestType);
 			ds.contributeDonation(da);
 			message = "Success";
@@ -159,8 +157,8 @@ public class DonationController {
 
 	public static void main(String[] args) {
 		// testAddDonation();
-		// listRequest();
-		contributeToRequest();
+		listRequest();
+		//contributeToRequest();
 		//updateRequest();
 	}
 
