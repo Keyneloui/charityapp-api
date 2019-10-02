@@ -102,6 +102,7 @@ public class DonorController {
 			obj.addProperty("errorMessage", errorMessage);
 			json = errorMessage;
 		}
+		System.out.println("List"+json);
 
 		return json;
 
@@ -109,8 +110,8 @@ public class DonorController {
 
 	public static void main(String[] args) {
 
-		testLogin();
-		testRegister();
+	//	testLogin();
+		//testRegister();
 		listDonor();
 
 	}

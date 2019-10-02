@@ -16,10 +16,10 @@ public class ContributeRequest extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String emailId = request.getParameter("emailId");
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		String requestType = request.getParameter("requestType");
 		double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
-		String json = DonationController.contributeRequest(requestAmount, requestType, emailId);
+		String json = DonationController.contributeRequest(requestAmount, requestType, userId);
 		PrintWriter out = response.getWriter();
 		out.write(json);
 		out.flush();

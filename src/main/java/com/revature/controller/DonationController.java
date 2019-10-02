@@ -12,7 +12,7 @@ import com.revature.exception.DBException;
 import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
 import com.revature.services.DonationService;
-import com.revature.util.DisplayUtil;
+
 
 public class DonationController {
 
@@ -125,7 +125,7 @@ public class DonationController {
 
 
 
-	public static String contributeRequest(double requestAmount, String requestType, String emailId) {
+	public static String contributeRequest(double requestAmount, String requestType, int userId) {
 		UserDAO udao = new UserDAOImpl();
 		String errorMessage = null;
 		String message = null;
@@ -135,7 +135,7 @@ public class DonationController {
 		da = new DonorActivity();
 		da.setAmount(requestAmount);
 		da.setRequestType(requestType);
-		da.setEmailId(emailId);
+		da.setId(userId);
 		try {
 			
 			validateRequestType(requestType);
@@ -175,10 +175,10 @@ public class DonationController {
 
 	private static void contributeToRequest() {
 		System.out.println("Test Case 1: Valid Input");
-		String validUserJson = DonationController.contributeRequest(1000, "Food", "s@gmail.com");
+		String validUserJson = DonationController.contributeRequest(1000, "Food", 1);
 		System.out.println(validUserJson);
 		System.out.println("Test Case 2: Invalid Input");
-		String invalidUserJson = DonationController.contributeRequest(10000, "Education", "s@gmail.com");
+		String invalidUserJson = DonationController.contributeRequest(10000, "Education", 1);
 		System.out.println(invalidUserJson);
 
 	}

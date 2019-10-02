@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.revature.dao.AdminDAO;
 import com.revature.dao.AdminDAOImpl;
+import com.revature.exception.DBException;
 import com.revature.model.Admin;
 import com.revature.services.AdminService;
 
@@ -18,15 +19,13 @@ public class AdminController {
 
 		Admin user = null;
 		try {
-			// user = ad.adminLogin(email, password);
 			user = as.adminLogin(email, password);
 
 			if (user == null) {
-				throw new Exception("invalid ");
+				throw new DBException("Invalid Email/Password");
 			}
 
 		} catch (Exception e) {
-			// e.printStackTrace();
 			errorMessage = e.getMessage();
 		}
 
