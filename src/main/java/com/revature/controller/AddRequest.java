@@ -17,9 +17,9 @@ public class AddRequest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String requestType = request.getParameter("requestType");
-		int requestId = Integer.parseInt(request.getParameter("requestId"));
+	//	int requestId = Integer.parseInt(request.getParameter("requestId"));
 		double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
-		String json = DonationController.addRequest(requestType, requestId, requestAmount);
+		String json = DonationController.addRequest(requestType, requestAmount);
 		PrintWriter out = response.getWriter();
 		out.write(json);
 		out.flush();

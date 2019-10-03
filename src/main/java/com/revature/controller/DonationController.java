@@ -12,6 +12,7 @@ import com.revature.exception.DBException;
 import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
 import com.revature.services.DonationService;
+import com.revature.util.DisplayUtil;
 
 
 public class DonationController {
@@ -26,6 +27,7 @@ public class DonationController {
 		try {
 			
 			list=ds.findAll();
+			DisplayUtil.display(list);
 			
 
 		} catch (DBException e) {
@@ -45,7 +47,7 @@ public class DonationController {
 
 	}
 
-	public static String addRequest(String requestType, int requestId, double requestAmount) {
+	public static String addRequest(String requestType,  double requestAmount) {
 
 		String errorMessage = null;
 		String message = null;
@@ -55,7 +57,7 @@ public class DonationController {
 			dr = new DonationRequest();
 
 			dr.setRequestType(requestType);
-			dr.setRequestId(requestId);
+			//dr.setRequestId(requestId);
 			dr.setRequestAmount(requestAmount);
 			ds.addDonations(dr);
 			message = "Success";
@@ -100,7 +102,7 @@ public class DonationController {
 		
 			dr.setRequestAmount(requestAmount);
 			
-			validateRequestType(requestType);
+			//validateRequestType(requestType);
 			ds.updateDonationss(dr);
 			message = "Success";
 
@@ -138,7 +140,7 @@ public class DonationController {
 		da.setId(userId);
 		try {
 			
-			validateRequestType(requestType);
+			//validateRequestType(requestType);
 			ds.contributeDonation(da);
 			message = "Success";
 		} catch (DBException e) {
@@ -164,10 +166,10 @@ public class DonationController {
 
 	private static void testAddDonation() {
 		System.out.println("Test Case 1: Valid Input");
-		String validUserJson = DonationController.addRequest("Goods", 5, 10000);
+		String validUserJson = DonationController.addRequest("Goods",  10000);
 		System.out.println(validUserJson);
 		System.out.println("Test Case 2: Invalid Input");
-		String invalidUserJson = DonationController.addRequest("Food", 1, 10000);
+		String invalidUserJson = DonationController.addRequest("Food",  10000);
 
 		System.out.println(invalidUserJson);
 
