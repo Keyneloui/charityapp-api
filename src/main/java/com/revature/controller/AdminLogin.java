@@ -14,15 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Get Inputs
-		String email = request.getParameter("email_id");
-		String password = request.getParameter("password");
-		String json = AdminController.login(email, password);
-		PrintWriter out = response.getWriter();
-		out.write(json);
-		out.flush();
+		try {
+			// Get Inputs
+			String email = request.getParameter("email_id");
+			String password = request.getParameter("password");
+			String json = AdminController.login(email, password);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			out.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 }

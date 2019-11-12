@@ -6,14 +6,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
-import com.revature.exception.DBException;
+import com.revature.exception.ServiceException;
 import com.revature.model.DonorActivity;
 import com.revature.model.User;
 import com.revature.services.UserService;
 
 public class DonorController {
-	static UserDAO udao = new UserDAOImpl();
-	static UserService us = new UserService();
+	static UserDAO userDao = new UserDAOImpl();
+	static UserService userService = new UserService();
+	
+	/**
+	 * method to call the user service for donor login
+	 * 
+	 **/
 
 	public static String login(String email, String password) {
 
@@ -21,12 +26,12 @@ public class DonorController {
 
 		User user = null;
 		try {
-			user = us.donorLogin(email, password);
+			user = userService.donorLogin(email, password);
 			if (user == null) {
-				throw new Exception("invalid ");
+				throw new ServiceException("Invalid email/password ");
 			}
 
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 
 			errorMessage = e.getMessage();
 		}
@@ -36,7 +41,7 @@ public class DonorController {
 		Gson gson = new Gson();
 		if (user != null) {
 			json = gson.toJson(user);
-		} else if (user == null) {
+		} else {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("errorMessage", errorMessage);
 			json = obj.toString();
@@ -45,9 +50,13 @@ public class DonorController {
 		return json;
 
 	}
+	
+	/**
+	 * method to call the user service for donor register
+	 * 
+	 **/
 
 	public static String register(String name, String email, String password) {
-		
 
 		String errorMessage = null;
 		String message = null;
@@ -58,11 +67,11 @@ public class DonorController {
 			user.setName(name);
 			user.setEmail(email);
 			user.setPassword(password);
-			
-			us.registerDonor(user);
+
+			userService.registerDonor(user);
 			message = "Success";
 
-		} catch (DBException e) {
+		} catch (ServiceException e) {
 
 			errorMessage = e.getMessage();
 		}
@@ -80,6 +89,10 @@ public class DonorController {
 		return obj.toString();
 
 	}
+	/**
+	 * method to call the user service for displaying the donor contributions
+	 * 
+	 **/
 
 	public static String listDonor() {
 		String json = null;
@@ -87,9 +100,9 @@ public class DonorController {
 		String errorMessage = null;
 		try {
 
-			list = us.findAll();
+			list = userService.findAll();
 
-		} catch (DBException e) {
+		} catch (ServiceException e) {
 			errorMessage = e.getMessage();
 
 		}
@@ -102,7 +115,7 @@ public class DonorController {
 			obj.addProperty("errorMessage", errorMessage);
 			json = errorMessage;
 		}
-		System.out.println("List"+json);
+		System.out.println("List" + json);
 
 		return json;
 
@@ -110,8 +123,8 @@ public class DonorController {
 
 	public static void main(String[] args) {
 
-	//	testLogin();
-		//testRegister();
+		testLogin();
+		testRegister();
 		listDonor();
 
 	}

@@ -14,14 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
+   @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String requestType = request.getParameter("requestType");
-		double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
-		String json = DonationController.updateRequest(requestType, requestAmount);
-		PrintWriter out = response.getWriter();
-		out.write(json);
-		out.flush();
+		try {
+			String requestType = request.getParameter("requestType");
+			double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
+			String json = DonationController.updateRequest(requestType, requestAmount);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			out.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

@@ -2,30 +2,31 @@ package com.revature.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.revature.dao.AdminDAO;
-import com.revature.dao.AdminDAOImpl;
-import com.revature.exception.DBException;
+import com.revature.exception.ServiceException;
 import com.revature.model.Admin;
 import com.revature.services.AdminService;
 
 public class AdminController {
-	static AdminService as = new AdminService();
-
-	static AdminDAO ad = new AdminDAOImpl();
+	
+	/**
+	 * method to call the admin service for admin login
+	 * 
+	 **/
 
 	public static String login(String email, String password) {
+		AdminService adminService = new AdminService();
 
 		String errorMessage = null;
 
 		Admin user = null;
 		try {
-			user = as.adminLogin(email, password);
+			user = adminService.adminLogin(email, password);
 
 			if (user == null) {
-				throw new DBException("Invalid Email/Password");
+				throw new ServiceException("Invalid Email/Password");
 			}
 
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			errorMessage = e.getMessage();
 		}
 
@@ -34,7 +35,7 @@ public class AdminController {
 		Gson gson = new Gson();
 		if (user != null) {
 			json = gson.toJson(user);
-		} else if (user == null) {
+		} else {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("errorMessage", errorMessage);
 			json = obj.toString();

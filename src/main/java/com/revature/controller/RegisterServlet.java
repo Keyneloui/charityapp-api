@@ -13,17 +13,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String name = request.getParameter("name");
-		String email_id = request.getParameter("email_id");
-		String password = request.getParameter("password");
-		String json = DonorController.register(name, email_id, password);
-		PrintWriter out = response.getWriter();
-		out.write(json);
-		out.flush();
+		try {
+			String name = request.getParameter("name");
+			String emailId = request.getParameter("email_id");
+			String password = request.getParameter("password");
+			String json = DonorController.register(name, emailId, password);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			out.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 

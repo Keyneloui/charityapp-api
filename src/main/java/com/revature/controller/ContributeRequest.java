@@ -14,15 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 public class ContributeRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		String requestType = request.getParameter("requestType");
-		double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
-		String json = DonationController.contributeRequest(requestAmount, requestType, userId);
-		PrintWriter out = response.getWriter();
-		out.write(json);
-		out.flush();
+		try {
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			String requestType = request.getParameter("requestType");
+			double requestAmount = Double.parseDouble(request.getParameter("requestAmount"));
+			String json = DonationController.contributeRequest(requestAmount, requestType, userId);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			out.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 }
